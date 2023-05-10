@@ -8,8 +8,8 @@ import 'react-datetime-picker/dist/DateTimePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import 'react-clock/dist/Clock.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { uiCloseModal } from '../actions/ui';
-import { eventAddNew, eventClearActiveEvent, eventUpdated } from '../actions/events';
+import { uiCloseModal } from '../../actions/ui';
+import { eventClearActiveEvent, eventStartAddNew, eventStartUpdated } from '../../actions/events';
 
 Modal.setAppElement('#root');
 
@@ -99,17 +99,9 @@ export const CalendarModal = () => {
         }
 
         if (activeEvent) {
-            dispatch(eventUpdated(formValues))
+            dispatch(eventStartUpdated(formValues));
         } else {
-            //TODO: Realizar grabacion en Base de datos
-            dispatch(eventAddNew({
-                ...formValues,
-                id: new Date().getTime(),
-                user: {
-                    _id: '123',
-                    name: 'Andres'
-                }
-            }));
+            dispatch(eventStartAddNew(formValues));
         }
 
 
